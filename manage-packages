@@ -111,7 +111,10 @@ def upload_to_cheeseshop(packages=[], requirement=None, upgrade=False):
     compiled_packages = [p for p in packages if is_compressed(p)]
     packages = [p for p in packages if p not in compiled_packages]
     pkgs = " ".join(packages)
-    subprocess.call("pip install -d %s %s %s" % (pypi, sreq, pkgs), shell=True)
+    opts = "--no-use-wheel --no-binary :all:"
+    download_command = "pip install %s -d %s %s %s" % (opts, pypi, sreq, pkgs)
+    if subprocess.call(download_command, shell=True) != 0:
+        exit(1)
     for p in compiled_packages:
         shutil.copy(p, pypi)
 
