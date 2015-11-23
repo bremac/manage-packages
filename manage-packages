@@ -27,13 +27,13 @@ except ImportError:
 
 from boto.s3.key import Key
 
-# Make sure you have these set up in your environment
-AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-
 # Non-sheepdoggers:  change to your bucket
 BUCKET_NAME = 'sheepdog-assets'
 CHEESESHOP_DIR = "feta" # Sheep milk cheese...
+
+# Try to provide some level of awscli compatibility
+if 'AWS_CONFIG_FILE' in os.environ:
+    boto.config.read(os.environ['AWS_CONFIG_FILE'])
 
 def is_compressed(filename):
     # Just a quick sanity check by filename.  Good enough.
