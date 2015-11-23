@@ -28,8 +28,8 @@ except ImportError:
 from boto.s3.key import Key
 
 # Non-sheepdoggers:  change to your bucket
-BUCKET_NAME = 'sheepdog-assets'
-CHEESESHOP_DIR = "feta" # Sheep milk cheese...
+BUCKET_NAME = os.environ.get('PYPI_MIRROR_BUCKET', 'sheepdog-assets')
+CHEESESHOP_DIR = os.environ.get('PYPI_MIRROR_DIR', 'feta')
 
 # Try to provide some level of awscli compatibility
 if 'AWS_CONFIG_FILE' in os.environ:
